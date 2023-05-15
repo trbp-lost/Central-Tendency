@@ -54,7 +54,6 @@ public class ModusMeanMedian {
     private static int Median(List<String> data){
         TempClear();
 
-        System.out.println(data.toString());
         tempList.addAll(data);
         tempList.sort(null);
 
