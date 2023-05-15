@@ -22,6 +22,10 @@ public class ModusMeanMedian {
         for (Map.Entry<String, Integer> dataD : kumpulanData.entrySet()) {
             if (dataD.getValue() >= nilaiTerbanyak) {
                 nilaiTerbanyak = dataD.getValue();
+            }
+        }
+        for (Map.Entry<String, Integer> dataD : kumpulanData.entrySet()) {
+            if (dataD.getValue() >= nilaiTerbanyak && tempList.contains(dataD.getValue().toString())==false) {
                 namaData = dataD.getKey();
                 tempList.add(namaData);
             }
@@ -50,13 +54,19 @@ public class ModusMeanMedian {
     private static int Median(List<String> data){
         TempClear();
 
-        tempList = data;
+        System.out.println(data.toString());
+        tempList.addAll(data);
         tempList.sort(null);
+
+        if (tempList.isEmpty()==true) {
+            System.err.println("\nMedian Temp List is \"Empty\"");
+            System.exit(3);
+        }
 
         if (tempList.size() % 2 == 0) {
             int middleIndex1 = tempList.size() / 2;
             int middleIndex2 = middleIndex1 - 1;
-            int hasil = (int)(Float.parseFloat(tempList.get(middleIndex1)) + Float.parseFloat(tempList.get(middleIndex2))) / 2;
+            int hasil = Math.round(((Integer.parseInt(tempList.get(middleIndex1)) + Integer.parseInt(tempList.get(middleIndex2))) / 2));
             return Integer.parseInt(tempList.get(hasil));
         } else {
             int middleIndex = tempList.size() / 2;
@@ -76,15 +86,23 @@ public class ModusMeanMedian {
             }
         }
 
-        System.out.println("Daftar Tabel : "+kumpulanData.toString());
+        System.out.println("\nDaftar Tabel : "+kumpulanData.toString());
         System.out.println("Banyak Tabel : "+kumpulanData.size());
 
         return kumpulanData;
     }
 
     private static void TempClear(){
-        if (tempList.isEmpty()==false) tempList.clear();
-        if (tempDic.isEmpty()==false) tempDic.clear();
+        tempList.clear();
+        tempDic.clear();
+    }
+    
+    private static void ResetData(){
+        TempClear();
+        kumpulanData.clear();
+        data.clear();
+        frekuensi=0;
+        input.reset();
     }
 
     private static void Hasil(){
@@ -94,7 +112,7 @@ public class ModusMeanMedian {
     }
 
     private static void Menu(){
-        TempClear();
+        ResetData();
 
         System.out.print("\nMasukkan banyak data : ");
         frekuensi = input.nextInt();
